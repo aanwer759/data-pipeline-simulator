@@ -31,9 +31,9 @@ def push_data_to_kafka(broker, topic):
         
         # Sample data to send
         data_points = [
-            {"id": 1, "sensor": "temp", "value": random.Random(5), "timestamp": time.time()},
-            {"id": 2, "sensor": "humidity", "value": random.Random(8), "timestamp": time.time()},
-            {"id": 3, "sensor": "pressure", "value": random.Random(50), "timestamp": time.time()}
+            {"id": 1, "sensor": "temp", "value": random.randint(10,50), "timestamp": time.time()},
+            {"id": 2, "sensor": "humidity", "value": random.randint(10,80), "timestamp": time.time()},
+            {"id": 3, "sensor": "pressure", "value": random.randint(50,1500), "timestamp": time.time()}
         ]
 
         # Send messages
