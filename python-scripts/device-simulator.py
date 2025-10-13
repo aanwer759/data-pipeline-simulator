@@ -2,6 +2,7 @@ from kafka import KafkaProducer
 import json
 import time
 import random
+import socket 
 
 # --- Configuration ---
 # Replace 'localhost:9092' with your Kafka broker's address if needed
@@ -63,6 +64,8 @@ def push_data_to_kafka(broker, topic):
             print("Producer closed.")
 
 if __name__ == "__main__":
+    HOST_NAME = socket.gethostname()
+    print(f"HOSTNAME : {HOST_NAME}")
     print(f"--- Starting Kafka Producer for topic: {KAFKA_TOPIC} ---")
     push_data_to_kafka(KAFKA_BROKER, KAFKA_TOPIC)
     print("--- Script Finished ---")
