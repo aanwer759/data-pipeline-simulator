@@ -41,7 +41,7 @@ services:
   python_app:
     build:
       context: .
-      dockerfile: ./python-scripts/Dockerfile
+      dockerfile: python-scripts/Dockerfile
     container_name: python_kafka_redis_app
     # The application starts after Kafka and Redis are ready
     depends_on:
