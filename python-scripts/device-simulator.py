@@ -1,11 +1,12 @@
 from kafka import KafkaProducer
 import json
 import time
+import random
 
 # --- Configuration ---
 # Replace 'localhost:9092' with your Kafka broker's address if needed
 KAFKA_BROKER = 'localhost:9092'
-KAFKA_TOPIC = 'my_test_topic' # Replace with your desired topic name
+KAFKA_TOPIC = 'device-1' # Replace with your desired topic name
 
 def json_serializer(data):
     """
@@ -30,9 +31,9 @@ def push_data_to_kafka(broker, topic):
         
         # Sample data to send
         data_points = [
-            {"id": 1, "sensor": "temp", "value": 25.5, "timestamp": time.time()},
-            {"id": 2, "sensor": "humidity", "value": 65.2, "timestamp": time.time()},
-            {"id": 3, "sensor": "pressure", "value": 1012.3, "timestamp": time.time()}
+            {"id": 1, "sensor": "temp", "value": random.Random(5), "timestamp": time.time()},
+            {"id": 2, "sensor": "humidity", "value": random.Random(8), "timestamp": time.time()},
+            {"id": 3, "sensor": "pressure", "value": random.Random(50), "timestamp": time.time()}
         ]
 
         # Send messages

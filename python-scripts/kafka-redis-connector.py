@@ -5,12 +5,12 @@ import time
 
 # --- Configuration ---
 KAFKA_BROKER = 'localhost:9092'     # Kafka Broker address
-KAFKA_TOPIC = 'my_test_topic'       # Topic to read from
+KAFKA_TOPIC = 'device-1'       # Topic to read from
 GROUP_ID = 'redis-pusher-group'     # Consumer group ID
 
 REDIS_HOST = 'localhost'            # Redis server host
 REDIS_PORT = 6379                   # Redis server port
-REDIS_KEY_PREFIX = 'kafka_data:'    # Prefix for keys stored in Redis
+REDIS_KEY_PREFIX = 'device1_data:'    # Prefix for keys stored in Redis
 
 def json_deserializer(m_bytes):
     """

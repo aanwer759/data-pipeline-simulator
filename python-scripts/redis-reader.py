@@ -4,8 +4,8 @@ import json
 # --- Configuration ---
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
-TEST_KEY = 'kafka_data:my_test_topic_0_1' # Example key from the previous Kafka script
-KEY_PATTERN = 'kafka_data:*'              # Pattern to find all keys stored by the Kafka script
+TEST_KEY = 'device1_data:device-1_0_1' # Example key from the previous Kafka script
+KEY_PATTERN = 'device1_data:*'              # Pattern to find all keys stored by the Kafka script
 
 def connect_to_redis(host, port):
     """
