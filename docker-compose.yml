@@ -52,7 +52,7 @@ services:
       KAFKA_BROKER: kafka:29092  # Internal Kafka port
       REDIS_HOST: redis         # Redis service name
     # Command can be adjusted based on which script you want to run (producer or consumer)
-    command: python /app/kafka_producer.py
+    command: python3 /app/device-simulator.py
     # command: python /app/kafka_to_redis.py
     # command: python /app/read_from_redis.py
 
