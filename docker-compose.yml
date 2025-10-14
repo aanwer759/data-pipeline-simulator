@@ -39,22 +39,11 @@ services:
   # 4. Python Scripts Container (The application logic)
   # ----------------------------------------
   python_app:
-    build:
-      context: .
-      dockerfile: python-scripts/Dockerfile
-    container_name: python_kafka_redis_app
+    image: data-simulator
+    container_name: device-data-simulator
     # The application starts after Kafka and Redis are ready
     depends_on:
       - kafka
       - redis
-    environment:
-      # Use the service names for inter-container communication
-      KAFKA_BROKER: kafka:29092  # Internal Kafka port
-      REDIS_HOST: redis         # Redis service name
     # Command can be adjusted based on which script you want to run (producer or consumer)
     command: python3 /app/device-simulator.py
-    # command: python /app/kafka_to_redis.py
-    # command: python /app/read_from_redis.py
-
-# volumes:
-#   redis_data: {} # Define the volume if used above
