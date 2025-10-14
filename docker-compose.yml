@@ -25,13 +25,13 @@ services:
       # WARNING: Use the internal Docker service name (e.g., 'kafka') instead of 'localhost' 
       # for multi-container setups. Since this is a single node, we'll keep the original 'localhost' 
       # but be aware of the internal networking implications.
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092 
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 
       
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       
       # --- KRaft Quorum Configuration (Single Node) ---
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
       
       # --- Topic/Replication Configuration ---
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
