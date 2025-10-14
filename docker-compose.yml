@@ -10,6 +10,16 @@ services:
     container_name: kafka
     ports:
       - "9092:9092"
+    environment:
+    # Defines the two ways Kafka can be reached
+      KAFKA_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      
+      # Advertises the two addresses to clients
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      
+      # Listener names for internal Docker networking
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
 
 
   # ----------------------------------------
