@@ -46,4 +46,4 @@ services:
       - kafka
       - redis
     # Command can be adjusted based on which script you want to run (producer or consumer)
-    command: python3 /app/device-simulator.py
+    command: bash 
