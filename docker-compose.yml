@@ -71,3 +71,4 @@ services:
 
 networks:
  network1:
+   driver: bridge
