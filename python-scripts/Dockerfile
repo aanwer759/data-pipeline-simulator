@@ -5,3 +5,5 @@ COPY . /app
 WORKDIR /app
 
 RUN pip3 install kafka-python
+
+CMD python3 device-simulator.py
