@@ -10,33 +10,33 @@ services:
     container_name: kafka
     ports:
       - "9092:9092"
-    environment:
+    #environment:
       # --- Node and Role Configuration ---
-      KAFKA_NODE_ID: 1
-      KAFKA_PROCESS_ROLES: broker,controller
+      #KAFKA_NODE_ID: 1
+     # KAFKA_PROCESS_ROLES: broker,controller
       
       # --- Listener Configuration ---
       # Tells Kafka to listen on 9092 (PLAINTEXT) and 9093 (CONTROLLER)
-      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+     # KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
       
       # Advertises the accessible address to clients
       # WARNING: Use the internal Docker service name (e.g., 'kafka') instead of 'localhost' 
       # for multi-container setups. Since this is a single node, we'll keep the original 'localhost' 
       # but be aware of the internal networking implications.
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 
+     # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092 
       
-      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      #KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      #KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       
       # --- KRaft Quorum Configuration (Single Node) ---
-      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      #KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
       
       # --- Topic/Replication Configuration ---
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_NUM_PARTITIONS: 3
+      #KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      #KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      #KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      #KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      #KAFKA_NUM_PARTITIONS: 3
 
   # ----------------------------------------
   # 3. Redis Server
