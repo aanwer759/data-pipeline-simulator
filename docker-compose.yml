@@ -56,7 +56,7 @@ services:
   # ----------------------------------------
   python_app:
     image: data-simulator
-    networks: host_mode
+    network_mode: host
     container_name: device-data-simulator
     # The application starts after Kafka and Redis are ready
     depends_on:
