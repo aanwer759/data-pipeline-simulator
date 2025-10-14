@@ -6,7 +6,7 @@ import socket
 
 # --- Configuration ---
 # Replace 'localhost:9092' with your Kafka broker's address if needed
-KAFKA_BROKER = 'localhost:9092'
+KAFKA_BROKER = 'kafka:9092'
 KAFKA_TOPIC = 'device-1' # Replace with your desired topic name
 
 def json_serializer(data):
