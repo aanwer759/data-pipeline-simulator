@@ -7,8 +7,6 @@ services:
   kafka:
     image: docker.io/apache/kafka
     hostname: kafka
-    networks:
-     - network1
     container_name: kafka
     ports:
       - "9092:9092"
@@ -69,6 +67,3 @@ services:
     #command: python3 /app/device-simulator.py
     command:  tail -f /dev/null
 
-networks:
- network1:
-   driver: bridge
