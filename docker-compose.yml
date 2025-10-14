@@ -10,17 +10,7 @@ services:
     container_name: kafka
     ports:
       - "9092:9092"
-#    environment:
-      # Kafka's internal network address for other containers (using the service name)
-#      KAFKA_BROKER_ID: 1
-#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-#      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-#      # Advertised address for external access (localhost:9092)
-#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
 
   # ----------------------------------------
   # 3. Redis Server
@@ -46,4 +36,4 @@ services:
       - kafka
       - redis
     # Command can be adjusted based on which script you want to run (producer or consumer)
-    command: bash 
+    command: python3 /app/device-simulator.py
