@@ -61,7 +61,7 @@ async function readStringData(key) {
 }
 
 // Example: Retrieve a simple event counter value
-readStringData('event_counter_id');
+//readStringData('event_counter_id');
 
 // A simple counter to generate unique IDs for events
 let eventCounter = 1000;
@@ -102,7 +102,7 @@ io.on('connection', (socket) => {
 // Start the real-time event generator that broadcasts to ALL connected clients
 // We use setInterval outside the 'connection' handler so only one timer runs for all clients.
 setInterval(() => {
-    const eventData = readStringData('device1_data:*');
+    const eventData = readStringData('device1_data:device-1_0_2');
     
     // Broadcast the event to all connected sockets on the 'new_event' channel
     io.emit('new_event', eventData); 
