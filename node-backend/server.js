@@ -2,8 +2,9 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
-
+const redis = require('redis');
 const app = express();
+
 // Create an HTTP server instance from the Express app
 const server = http.createServer(app);
 const PORT = 4000; // Must match the SERVER_URL in your React frontend
@@ -14,7 +15,7 @@ app.use(cors({
     origin: 'http://localhost:8080', // Update this if your React app uses a different port
     methods: ['GET', 'POST']
 }));
-/*
+
 // --- Socket.io Setup ---
 // Attach Socket.io to the HTTP server
 const io = new Server(server, {
@@ -23,7 +24,45 @@ const io = new Server(server, {
         methods: ['GET', 'POST']
     }
 });
-*/
+
+const client = redis.createClient({
+    // Using a Promise-based client is the modern standard for async/await
+    legacyMode: false 
+});
+
+client.on('error', (err) => console.log('Redis Client Error', err));
+
+async function connectToRedis() {
+    try {
+        await client.connect();
+        console.log('Successfully connected to Redis!');
+    } catch (err) {
+        console.error('Could not connect to Redis:', err);
+    }
+}
+
+connectToRedis();
+
+async function readStringData(key) {
+    try {
+        // 'client.get(key)' returns the value as a string, or null if the key doesn't exist.
+        const value = await client.get(key);
+        
+        if (value !== null) {
+            console.log(`Value for '${key}': ${value}`);
+            return value;
+        } else {
+            console.log(`Key '${key}' not found.`);
+            return null;
+        }
+    } catch (err) {
+        console.error('Error reading key:', err);
+    }
+}
+
+// Example: Retrieve a simple event counter value
+readStringData('event_counter_id');
+
 // A simple counter to generate unique IDs for events
 let eventCounter = 1000;
 
@@ -63,7 +102,7 @@ io.on('connection', (socket) => {
 // Start the real-time event generator that broadcasts to ALL connected clients
 // We use setInterval outside the 'connection' handler so only one timer runs for all clients.
 setInterval(() => {
-    const eventData = generateEvent();
+    const eventData = readStringData('device1_data:*');
     
     // Broadcast the event to all connected sockets on the 'new_event' channel
     io.emit('new_event', eventData); 
@@ -75,6 +114,10 @@ setInterval(() => {
 // --- Express HTTP Route (Optional) ---
 app.get('/', (req, res) => {
     res.send('Event Stream Backend is running. Establish a WebSocket connection to start receiving data.');
+});
+
+app.get("/device-1", (req, res) => {
+    res.send("this page should contain socket for device 1 stream")
 });
 
 // --- Start Server ---
