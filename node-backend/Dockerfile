@@ -12,6 +12,7 @@ COPY package-lock.json .
 # Install dependencies. We specifically exclude devDependencies 
 # (like nodemon) which aren't needed for the final production image.
 RUN npm install --production
+Run npm install redis
 
 # === STAGE 2: PRODUCTION (Copy Code and Run) ===
 # Use a minimal Node.js image for the final runtime
