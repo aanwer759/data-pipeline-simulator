@@ -69,8 +69,8 @@ function EventMonitor() {
               }}
             >
                
-              <span style={{ marginLeft: '10px' }}>Type: {event[0].id}</span> 
-              <span style={{ marginLeft: '10px' }}>ID: {event[0].sensor}</span>
+              <span style={{ marginLeft: '10px' }}>Type: {event.id}</span> 
+              <span style={{ marginLeft: '10px' }}>ID: {event.sensor}</span>
              
             </div>
           ))
