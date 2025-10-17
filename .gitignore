@@ -1,2 +1,4 @@
 ./node-backend/node-modules/*
 ./python-scripts/venv/*
+./node_backend/node_modules/*
+./front-end/node_modules/*
