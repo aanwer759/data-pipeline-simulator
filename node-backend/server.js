@@ -41,22 +41,51 @@ async function connectToRedis() {
     }
 }
 
+/**
+ * Iteratively retrieves all keys matching a pattern using the SCAN command.
+ * @param {string} pattern - The glob-style pattern (e.g., 'user:*').
+ * @returns {Promise<string[]>} - A promise that resolves to an array of matching keys.
+ */
+async function getKeysByScan(pattern) {
+    let cursor = 0; // The starting cursor for the iteration
+    let keys = [];
+    
+    // The SCAN command syntax: SCAN cursor [MATCH pattern] [COUNT count]
+    // The response is an array: [new_cursor, [key1, key2, ...]]
+    do {
+        // Use a reasonable COUNT (e.g., 1000) for balance
+        const reply = await client.scan(cursor, { MATCH: pattern, COUNT: 1000 });
+        
+        // Update the cursor for the next iteration
+        cursor = parseInt(reply.cursor, 10); 
+        
+        // Add the retrieved keys to the array
+        keys = keys.concat(reply.keys);
+        
+    } while (cursor !== 0); // The iteration finishes when the cursor returns to '0'
+
+    return keys;
+}
+
 connectToRedis();
 
 async function readStringData(key) {
     try {
-        // 'client.get(key)' returns the value as a string, or null if the key doesn't exist.
-        const value = await client.get(key);
+        const pattern = 'device1_data:*';
+        const matchingKeys = await getKeysByScan(pattern);
         
-        if (value !== null) {
-            console.log(`Value for '${key}': ${value}`);
-            return value;
-        } else {
-            console.log(`Key '${key}' not found.`);
-            return null;
+        console.log(`Found ${matchingKeys.length} keys matching '${pattern}':`);
+        // Now you have the list of keys, you can use MGET, HMGET, etc., to fetch their data.
+        console.log(matchingKeys);
+        
+        // Example: Retrieve the data for all found keys (assuming they are simple strings)
+        if (matchingKeys.length > 0) {
+            const data = await client.mGet(matchingKeys);
+            console.log("\nData for these keys (MGET):", data);
         }
-    } catch (err) {
-        console.error('Error reading key:', err);
+        
+    } catch (error) {
+        console.error("An error occurred during SCAN operation:", error);
     }
 }
 
