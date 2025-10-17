@@ -32,7 +32,8 @@ function EventMonitor() {
     // Listen for the 'new_event' broadcast from the server
     socket.on('new_event', (eventData) => {
       // Add the new event to the top of the list
-      setEvents(prevEvents => [eventData, ...prevEvents].slice(0, 50)); // Keep only the last 50 events
+      console.log(eventData);
+      //setEvents(prevEvents => [eventData, ...prevEvents].slice(0, 50)); // Keep only the last 50 events
       
       // OPTIONAL: Emit an event back to the server, e.g., an acknowledgement or a 'client_status' update
       // socket.emit('client_status', { userId: 'user-001', eventCount: prevEvents.length + 1 });
