@@ -83,8 +83,27 @@ async function readStringData(key) {
         if (matchingKeys.length > 0) {
             const data = await client.mGet(matchingKeys);
             console.log("\nData for these keys (MGET):", data);
-            console.log("Sending data to backend");
-            io.emit('new_event', data);
+            console.log("Sending data to frontend from backend");
+            // 3. Parse and Find the Latest Data Point
+    let latestEvent = null;
+
+    for (const jsonString of data) {
+        if (!jsonString) continue; // Skip if a key didn't have a value (returned null)
+        
+        try {
+            // Parse the JSON string into a JavaScript object
+            const currentEvent = JSON.parse(jsonString);
+
+            // Check if this event is the latest one found so far
+            if (!latestEvent || new Date(currentEvent.timestamp) > new Date(latestEvent.timestamp)) {
+                latestEvent = currentEvent;
+            }
+        } catch (e) {
+            console.error("Error parsing JSON data from Redis:", e);
+            // Optionally log the bad string here
+        }
+    }
+            io.emit('new_event', latestEvent);
         }
         
     } catch (error) {
