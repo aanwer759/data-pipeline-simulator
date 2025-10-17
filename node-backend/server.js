@@ -54,8 +54,8 @@ async function getKeysByScan(pattern) {
     // The response is an array: [new_cursor, [key1, key2, ...]]
     do {
         // Use a reasonable COUNT (e.g., 1000) for balance
-        const reply = await client.scan(cursor, { MATCH: pattern, COUNT: 1000 });
-        
+        //const reply = await client.scan(cursor, { MATCH: pattern, COUNT: 1000 });
+        const reply = await client.scan(cursor, {MATCH: "device1_data", COUNT: 1000});
         // Update the cursor for the next iteration
         cursor = parseInt(reply.cursor, 10); 
         
