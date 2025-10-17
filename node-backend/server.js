@@ -133,7 +133,8 @@ io.on('connection', (socket) => {
 // We use setInterval outside the 'connection' handler so only one timer runs for all clients.
 setInterval(() => {
     const eventData = readStringData('device1_data:device-1_0_2');
-    
+    console.log("before sending data to frontend");
+    console.log(eventData);
     // Broadcast the event to all connected sockets on the 'new_event' channel
     io.emit('new_event', eventData); 
     
