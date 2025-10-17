@@ -47,22 +47,31 @@ async function connectToRedis() {
  * @returns {Promise<string[]>} - A promise that resolves to an array of matching keys.
  */
 async function getKeysByScan(pattern) {
-    let cursor = 0; // The starting cursor for the iteration
+    // 1. Initialize cursor as the string '0'
+    let cursor = '0'; 
     let keys = [];
     
-    // The SCAN command syntax: SCAN cursor [MATCH pattern] [COUNT count]
-    // The response is an array: [new_cursor, [key1, key2, ...]]
     do {
-        // Use a reasonable COUNT (e.g., 1000) for balance
-        //const reply = await client.scan(cursor, { MATCH: pattern, COUNT: 1000 });
-        const reply = await client.scan(cursor, 'MATCH', "device1_data", 'COUNT', 1000);
-        // Update the cursor for the next iteration
-        cursor = parseInt(reply.cursor, 10); 
+        // Use the alternating argument syntax (based on your error)
+        // Ensure 'cursor' is a string here.
+        const reply = await client.scan(
+            cursor, 
+            'MATCH', 
+            pattern, 
+            'COUNT', 
+            1000
+        );
+
+        // 2. The reply array structure for this client version is: [new_cursor_string, [keys...]]
         
-        // Add the retrieved keys to the array
-        keys = keys.concat(reply.keys);
+        // Update the cursor with the string value from the reply array (reply[0])
+        cursor = reply[0]; 
         
-    } while (cursor !== 0); // The iteration finishes when the cursor returns to '0'
+        // Get the list of keys (reply[1])
+        keys = keys.concat(reply[1]); 
+        
+    // 3. Compare the cursor string against the terminating string '0'
+    } while (cursor !== '0'); 
 
     return keys;
 }
