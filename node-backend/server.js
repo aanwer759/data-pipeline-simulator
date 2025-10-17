@@ -131,12 +131,12 @@ io.on('connection', (socket) => {
 
 // Start the real-time event generator that broadcasts to ALL connected clients
 // We use setInterval outside the 'connection' handler so only one timer runs for all clients.
-setInterval(() => {
-    const eventData = readStringData('device1_data:device-1_0_2');
+setInterval(async () => {
+    eventData = await readStringData('device1_data:device-1_0_2');
     console.log("before sending data to frontend");
     console.log(eventData);
     // Broadcast the event to all connected sockets on the 'new_event' channel
-    io.emit('new_event', eventData); 
+     io.emit('new_event', eventData); 
     
     // console.log(`Emitted event ${eventData.id}: ${eventData.type}`); // Uncomment for heavy logging
 }, 500); // Emit a new event every 500 milliseconds (0.5 seconds)
