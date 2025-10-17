@@ -71,8 +71,9 @@ connectToRedis();
 
 async function readStringData(key) {
     try {
-        const pattern = 'device1_data:';
-        const matchingKeys = await getKeysByScan(pattern);
+        const pattern1 = 'device1_data:';
+        const matchingKeys1 = await getKeysByScan(pattern);
+        //const matchingKeys = await getKeysByScan(pattern);
         
         console.log(`Found ${matchingKeys.length} keys matching '${pattern}':`);
         // Now you have the list of keys, you can use MGET, HMGET, etc., to fetch their data.
