@@ -71,7 +71,7 @@ function EventMonitor() {
                
               <span style={{ marginLeft: '10px' }}>Type: {event.id}</span> 
               <span style={{ marginLeft: '10px' }}>ID: {event.sensor}</span>
-              <span style={{ marginLeft: '10px' }}>Value: {event.value.toFixed(2)}</span>
+             
             </div>
           ))
         )}
