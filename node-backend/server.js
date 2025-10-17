@@ -71,7 +71,7 @@ connectToRedis();
 
 async function readStringData(key) {
     try {
-        const pattern = 'device1_data:*';
+        const pattern = 'device1_data:';
         const matchingKeys = await getKeysByScan(pattern);
         
         console.log(`Found ${matchingKeys.length} keys matching '${pattern}':`);
