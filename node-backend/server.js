@@ -83,6 +83,8 @@ async function readStringData(key) {
         if (matchingKeys.length > 0) {
             const data = await client.mGet(matchingKeys);
             console.log("\nData for these keys (MGET):", data);
+            console.log("Sending data to backend");
+            io.emit('new_event', data);
         }
         
     } catch (error) {
@@ -96,22 +98,7 @@ async function readStringData(key) {
 // A simple counter to generate unique IDs for events
 let eventCounter = 1000;
 
-// --- Event Generation Logic ---
-// Function to generate a random event object
-const generateEvent = () => {
-    const types = ['SENSOR_READING', 'USER_ACTIVITY', 'ALERT', 'SYSTEM_INFO'];
-    const randomType = types[Math.floor(Math.random() * types.length)];
 
-    eventCounter++;
-    
-    return {
-        id: eventCounter,
-        type: randomType,
-        // Simulate a value fluctuation
-        value: Math.random() * 100, 
-        timestamp: new Date().toISOString()
-    };
-};
 
 // --- Socket.io Connection & Real-Time Emitter ---
 io.on('connection', (socket) => {
@@ -131,14 +118,14 @@ io.on('connection', (socket) => {
 
 // Start the real-time event generator that broadcasts to ALL connected clients
 // We use setInterval outside the 'connection' handler so only one timer runs for all clients.
-setInterval(async () => {
+setInterval( () => {
     try{
-        eventData = await readStringData('device1_data:device-1_0_2');
+        eventData =  readStringData('device1_data:device-1_0_2');
     // Broadcast the event to all connected sockets on the 'new_event' channel
     if (eventData){
     console.log("before sending data to frontend");
     console.log(eventData);
-    io.emit('new_event', eventData); 
+    //io.emit('new_event', eventData); 
     
     }
 
