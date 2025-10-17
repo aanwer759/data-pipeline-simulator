@@ -139,7 +139,7 @@ setInterval(async () => {
      io.emit('new_event', eventData); 
     
     // console.log(`Emitted event ${eventData.id}: ${eventData.type}`); // Uncomment for heavy logging
-}, 500); // Emit a new event every 500 milliseconds (0.5 seconds)
+}, 1000); // Emit a new event every 500 milliseconds (0.5 seconds)
 
 
 // --- Express HTTP Route (Optional) ---
