@@ -19,4 +19,4 @@ jobs:
         echo "current working directory is :"
         pwd
     - name: Build the Docker image
-      run: podman build -t test-CI-CD-image:$(date +%s)  node-backend/ 
+      run: podman build -t localhost/test-ci-cd-image:$(date +%s)  node-backend/ 
