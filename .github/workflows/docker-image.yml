@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Check for PWD
+      run: |
+      echo "current working directory is :"
+      pwd
     - name: Build the Docker image
       run: podman build  --file node-backend/ --tag test-CI-CD-image:$(date +%s)
