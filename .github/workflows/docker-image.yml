@@ -22,6 +22,7 @@ jobs:
       run: podman build -t localhost/device-simulator:latest  python-scripts/
   
   scanner:
+    needs: build
     runs-on: ['self-hosted', 'Linux', 'X64']
     steps:
     - uses: actions/checkout@v4 
