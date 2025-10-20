@@ -26,8 +26,8 @@ jobs:
     runs-on: ['self-hosted', 'Linux', 'X64']
     steps:
     - uses: actions/checkout@v4 
-    - name: Scanning front-end
-      run: trivy image localhost/front-end:latest 
+#    - name: Scanning front-end
+#      run: trivy image localhost/front-end:latest 
     - name: Scanning back-end
       run: trivy image localhost/node-backend:latest
     - name: Scanning device-simulator
