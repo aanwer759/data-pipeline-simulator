@@ -19,4 +19,4 @@ jobs:
     - name: Build Front-End
       run: podman build -t localhost/front-end:$(date +%s)  front-end/
     - name: Build Device Simulator
-      run: podman build -t localhost/device-simulator:$(date +%s) python-scripts/
+      run: podman build -t localhost/device-simulator:$(date +%s)  python-scripts/
