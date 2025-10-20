@@ -15,8 +15,19 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build backend
-      run: podman build -t localhost/node-backend:$(date +%s)  node-backend/ 
+      run: podman build -t localhost/node-backend:latest  node-backend/ 
     - name: Build Front-End
-      run: podman build -t localhost/front-end:$(date +%s)  front-end/
+      run: podman build -t localhost/front-end:latest  front-end/
     - name: Build Device Simulator
-      run: podman build -t localhost/device-simulator:$(date +%s)  python-scripts/
+      run: podman build -t localhost/device-simulator:latest  python-scripts/
+  
+  scanner:
+    runs-on: ['self-hosted', 'Linux', 'X64']
+    steps:
+    - uses: actions/checkout@v4 
+    - name: Scanning front-end
+      run: trivy image localhost/front-end:latest 
+    - name: Scanning back-end
+      run: trivy image localhost/node-backend:latest
+    - name: Scanning device-simulator
+      run: trivy image localhost/device-simulator:latest  
