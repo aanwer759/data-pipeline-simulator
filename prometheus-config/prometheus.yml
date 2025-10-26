@@ -1,0 +1,10 @@
+# prometheus.yml snippet
+scrape_configs:
+  # ... other scrape jobs
+  
+  - job_name: 'python-test-exporter'
+    # Set a frequent scrape interval to see dynamic data quickly
+    scrape_interval: 5s 
+    static_configs:
+      # Target the host and port where your Python script is running
+      - targets: ['localhost:8000']
