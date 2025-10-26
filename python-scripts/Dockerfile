@@ -4,6 +4,6 @@ COPY . /app
 
 WORKDIR /app
 
-RUN pip3 install kafka-python
+RUN pip3 install kafka-python prometheus-client
 
 CMD python3 device-simulator.py
